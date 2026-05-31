@@ -4,11 +4,10 @@ export function OutcomeInput({ outcome, index }) {
       <label>
         <span>Odd ${index + 1}</span>
         <input
-          type="number"
+          type="text"
           class="js-outcome-odds"
           value="${escapeHtml(outcome.odds)}"
-          min="1.01"
-          step="0.01"
+          pattern="[0-9]*[.]?[0-9]*"
           inputmode="decimal"
           placeholder="2.10"
         />

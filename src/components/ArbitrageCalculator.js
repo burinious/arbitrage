@@ -48,7 +48,7 @@ export function createArbitrageCalculator(root) {
             <div class="control-grid">
               <label class="stake-field">
                 <span>Total Amount</span>
-                <input class="js-total-stake" type="number" min="0.01" step="0.01" inputmode="decimal" value="${state.totalStake}" placeholder="Enter total amount" />
+                <input class="js-total-stake" type="text" pattern="[0-9]*[.]?[0-9]*" inputmode="decimal" value="${state.totalStake}" placeholder="Enter total amount" />
               </label>
               <label class="currency-field">
                 <span>Currency</span>
