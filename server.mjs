@@ -2,7 +2,7 @@ import { createReadStream, existsSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
 
-const port = Number(process.env.PORT || 4173);
+const preferredPort = Number(process.env.PORT || 4173);
 const root = process.cwd();
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
@@ -31,6 +31,21 @@ const server = createServer((request, response) => {
   createReadStream(filePath).pipe(response);
 });
 
-server.listen(port, () => {
-  console.log(`ArbiCalc is running at http://localhost:${port}`);
+listen(preferredPort);
+
+function listen(port) {
+  server.listen(port, () => {
+    console.log(`ArbiCalc is running at http://localhost:${port}`);
+  });
+}
+
+server.on("error", (error) => {
+  if (error.code === "EADDRINUSE" && !process.env.PORT) {
+    const nextPort = Number(error.port || preferredPort) + 1;
+    console.log(`Port ${error.port || preferredPort} is in use. Trying ${nextPort}...`);
+    listen(nextPort);
+    return;
+  }
+
+  throw error;
 });
