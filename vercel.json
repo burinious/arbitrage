@@ -7,6 +7,10 @@
     {
       "source": "/favicon.ico",
       "destination": "/assets/icon.svg"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
