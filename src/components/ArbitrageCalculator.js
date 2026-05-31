@@ -23,13 +23,7 @@ const defaultState = {
 export function createArbitrageCalculator(root) {
   let state = loadState();
 
-  function render(focusInfo = null) {
-    const activeOutcomes = state.outcomes.slice(0, state.outcomeCount);
-    const result = calculateArbitrage({
-      totalStake: state.totalStake,
-      outcomes: activeOutcomes
-    });
-
+  function render() {
     document.documentElement.dataset.theme = state.theme;
     root.innerHTML = `
       <main class="app-shell">
@@ -48,7 +42,7 @@ export function createArbitrageCalculator(root) {
           <section class="input-card">
 
             <div class="outcomes-list">
-              ${activeOutcomes.map((outcome, index) => OutcomeInput({ outcome, index })).join("")}
+              ${getActiveOutcomes().map((outcome, index) => OutcomeInput({ outcome, index })).join("")}
             </div>
 
             <div class="control-grid">
@@ -74,36 +68,34 @@ export function createArbitrageCalculator(root) {
             <button class="calculate-button" type="button">Calculate</button>
           </section>
 
-          ${ResultCard({ result, currencySymbol: state.currencySymbol })}
+          <div class="result-mount js-result-mount">
+            ${ResultCard({ result: getResult(), currencySymbol: state.currencySymbol })}
+          </div>
         </div>
       </main>
     `;
 
-    bindEvents(result);
-    restoreFocus(focusInfo);
+    bindEvents();
   }
 
-  function bindEvents(result) {
+  function bindEvents() {
     root.querySelector(".js-total-stake").addEventListener("input", (event) => {
-      const focusInfo = getFocusInfo(event.target);
       state.totalStake = event.target.value;
       persistPreferences();
-      render(focusInfo);
+      renderResult();
     });
 
     root.querySelector(".js-currency").addEventListener("input", (event) => {
-      const focusInfo = getFocusInfo(event.target);
       state.currencySymbol = event.target.value.trim() || "₦";
       persistPreferences();
-      render(focusInfo);
+      renderResult();
     });
 
     root.querySelectorAll(".outcome-row").forEach((row) => {
       const outcome = state.outcomes.find((item) => item.id === row.dataset.outcomeId);
       row.querySelector(".js-outcome-odds").addEventListener("input", (event) => {
-        const focusInfo = getFocusInfo(event.target, row.dataset.outcomeId);
         outcome.odds = event.target.value;
-        render(focusInfo);
+        renderResult();
       });
     });
 
@@ -145,6 +137,27 @@ export function createArbitrageCalculator(root) {
   }
 
   render();
+
+  function renderResult() {
+    const resultMount = root.querySelector(".js-result-mount");
+    if (!resultMount) return;
+
+    resultMount.innerHTML = ResultCard({
+      result: getResult(),
+      currencySymbol: state.currencySymbol
+    });
+  }
+
+  function getResult() {
+    return calculateArbitrage({
+      totalStake: state.totalStake,
+      outcomes: getActiveOutcomes()
+    });
+  }
+
+  function getActiveOutcomes() {
+    return state.outcomes.slice(0, state.outcomeCount);
+  }
 }
 
 function loadState() {
@@ -163,40 +176,5 @@ function readStorage(key, fallback) {
     return JSON.parse(localStorage.getItem(key)) ?? fallback;
   } catch {
     return fallback;
-  }
-}
-
-function getFocusInfo(element, outcomeId = null) {
-  const className = [...element.classList].find((item) => item.startsWith("js-"));
-  if (!className) return null;
-
-  return {
-    selector: outcomeId ? `[data-outcome-id="${outcomeId}"] .${className}` : `.${className}`,
-    start: getSelectionValue(element, "selectionStart"),
-    end: getSelectionValue(element, "selectionEnd")
-  };
-}
-
-function restoreFocus(focusInfo) {
-  if (!focusInfo) return;
-
-  const element = document.querySelector(focusInfo.selector);
-  if (!element) return;
-
-  element.focus({ preventScroll: true });
-  if (focusInfo.start !== null && focusInfo.end !== null) {
-    try {
-      element.setSelectionRange(focusInfo.start, focusInfo.end);
-    } catch {
-      // Number inputs do not support text selection in every browser.
-    }
-  }
-}
-
-function getSelectionValue(element, key) {
-  try {
-    return typeof element[key] === "number" ? element[key] : null;
-  } catch {
-    return null;
   }
 }

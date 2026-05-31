@@ -265,6 +265,11 @@ input:focus {
   overflow: hidden;
 }
 
+.result-mount {
+  min-height: 0;
+  overflow: hidden;
+}
+
 .result-strip,
 .summary-box {
   border: 4px solid var(--cyan);
