@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ArbiCalc</string>
+    <string name="title_activity_main">ArbiCalc</string>
+    <string name="package_name">com.burinious.arbicalc</string>
+    <string name="custom_url_scheme">com.burinious.arbicalc</string>
+</resources>

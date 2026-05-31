@@ -4,9 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "android:build": "npm run build && npx cap sync android && cd android && gradlew.bat assembleDebug",
+    "android:sync": "npm run build && npx cap sync android",
     "build": "node scripts/build.mjs",
     "dev": "node server.mjs",
     "start": "node server.mjs",
     "test": "node tests/arbitrage.test.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.3.4",
+    "@capacitor/cli": "^8.3.4",
+    "@capacitor/core": "^8.3.4"
   }
 }

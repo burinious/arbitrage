@@ -1,0 +1,8 @@
+{
+  "appId": "com.burinious.arbicalc",
+  "appName": "ArbiCalc",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
