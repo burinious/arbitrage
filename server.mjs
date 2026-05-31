@@ -15,7 +15,12 @@ const mimeTypes = {
 
 const server = createServer((request, response) => {
   const url = new URL(request.url || "/", `http://${request.headers.host}`);
-  const requestedPath = url.pathname === "/" ? "/index.html" : decodeURIComponent(url.pathname);
+  const requestedPath =
+    url.pathname === "/"
+      ? "/index.html"
+      : url.pathname === "/favicon.ico"
+        ? "/assets/icon.svg"
+        : decodeURIComponent(url.pathname);
   const filePath = normalize(join(root, requestedPath));
 
   if (!filePath.startsWith(root) || !existsSync(filePath) || !statSync(filePath).isFile()) {
