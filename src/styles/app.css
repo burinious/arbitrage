@@ -1,43 +1,44 @@
 :root {
   color-scheme: dark;
   --page-bg:
-    radial-gradient(circle at 50% 64%, rgba(98, 248, 75, 0.48), transparent 30%),
-    radial-gradient(circle at 48% 46%, rgba(0, 229, 203, 0.42), transparent 24%),
-    linear-gradient(160deg, #091208, #153a1b 58%, #071109);
-  --bg: #102716;
-  --panel: rgba(42, 90, 42, 0.72);
-  --panel-strong: rgba(14, 155, 112, 0.28);
-  --field: rgba(28, 74, 38, 0.82);
-  --field-strong: rgba(78, 143, 61, 0.9);
-  --line: rgba(226, 255, 215, 0.86);
-  --text: #f3ffe9;
-  --muted: #d7eccf;
-  --accent: #d8fb63;
-  --cyan: #07e3d6;
-  --success: #b9fb66;
-  --warning: #ffcf5a;
-  --danger: #ff8b75;
+    radial-gradient(circle at 20% 15%, rgba(74, 222, 128, 0.22), transparent 28%),
+    radial-gradient(circle at 82% 82%, rgba(45, 212, 191, 0.18), transparent 30%),
+    linear-gradient(155deg, #07130f 0%, #10251d 55%, #08100d 100%);
+  --surface: rgba(12, 31, 25, 0.86);
+  --surface-soft: rgba(18, 49, 39, 0.72);
+  --field: rgba(8, 22, 18, 0.78);
+  --field-strong: rgba(22, 78, 61, 0.86);
+  --border: rgba(174, 216, 194, 0.2);
+  --border-strong: rgba(157, 243, 201, 0.48);
+  --text: #f4fff8;
+  --muted: #a9c5b7;
+  --accent: #72f0a6;
+  --accent-strong: #1fbf7a;
+  --cyan: #35e1d0;
+  --warning: #f6bd4b;
+  --danger: #fb7c68;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
   --page-bg:
-    radial-gradient(circle at 50% 68%, rgba(137, 245, 92, 0.38), transparent 30%),
-    radial-gradient(circle at 48% 48%, rgba(0, 190, 177, 0.28), transparent 24%),
-    linear-gradient(160deg, #eef8e8, #c9eeb8 58%, #f6fff1);
-  --panel: rgba(228, 250, 207, 0.82);
-  --panel-strong: rgba(13, 148, 111, 0.18);
-  --field: rgba(248, 255, 241, 0.88);
-  --field-strong: rgba(84, 153, 66, 0.78);
-  --line: rgba(35, 88, 30, 0.62);
-  --text: #183318;
-  --muted: #4e6849;
-  --accent: #2d7e1f;
-  --cyan: #08a99f;
-  --success: #287a21;
-  --warning: #93650e;
-  --danger: #b83221;
+    radial-gradient(circle at 18% 16%, rgba(34, 197, 94, 0.18), transparent 28%),
+    radial-gradient(circle at 84% 82%, rgba(20, 184, 166, 0.14), transparent 30%),
+    linear-gradient(155deg, #f7fbf6 0%, #e9f5ec 55%, #f8fff9 100%);
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-soft: rgba(235, 247, 239, 0.78);
+  --field: rgba(255, 255, 255, 0.92);
+  --field-strong: rgba(218, 242, 226, 0.95);
+  --border: rgba(30, 83, 58, 0.16);
+  --border-strong: rgba(25, 135, 84, 0.42);
+  --text: #12231b;
+  --muted: #60766a;
+  --accent: #117c53;
+  --accent-strong: #0c6a45;
+  --cyan: #0e9388;
+  --warning: #98680d;
+  --danger: #b73324;
 }
 
 * {
@@ -70,66 +71,58 @@ button {
   width: min(430px, 100%);
   height: 100dvh;
   margin: 0 auto;
-  padding: 10px 12px 12px;
+  padding: 10px;
   overflow: hidden;
 }
 
 .app-header {
   display: grid;
-  grid-template-columns: 36px 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
   gap: 10px;
-  height: 44px;
-}
-
-h1,
-h2 {
-  margin: 0;
-  letter-spacing: 0;
+  height: 46px;
 }
 
 h1 {
-  font-size: 1.2rem;
-  font-weight: 800;
+  margin: 0;
+  font-size: 1.18rem;
+  font-weight: 900;
+  letter-spacing: 0;
   text-align: center;
 }
 
-.icon-button,
-.text-button,
 .theme-toggle {
-  border: 0;
-  background: transparent;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-soft);
   color: var(--text);
-}
-
-.icon-button {
-  min-height: 36px;
-  font-size: 1.35rem;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 }
 
 .odds-type {
   display: inline-grid;
   min-height: 32px;
   align-items: center;
-  border-bottom: 2px solid var(--accent);
-  color: var(--accent);
-  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  padding: 0 10px;
+  font-size: 0.76rem;
   font-weight: 800;
 }
 
 .theme-toggle {
-  display: grid;
-  width: 32px;
-  height: 32px;
-  place-items: center;
-  border: 1px solid rgba(244, 255, 239, 0.45);
-  border-radius: 999px;
+  border-color: var(--border-strong);
 }
 
 .theme-icon {
@@ -142,7 +135,7 @@ h1 {
 
 .theme-icon--sun {
   background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(216, 251, 99, 0.16);
+  box-shadow: 0 0 16px rgba(114, 240, 166, 0.42);
 }
 
 .theme-icon--moon {
@@ -152,37 +145,37 @@ h1 {
 .theme-icon--moon::after {
   content: "";
   position: absolute;
-  top: -3px;
-  right: -3px;
+  top: -4px;
+  right: -4px;
   width: 12px;
   height: 12px;
   border-radius: 999px;
-  background: #dff5d6;
+  background: #f7fbf6;
 }
 
 .calculator-screen {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   gap: 8px;
-  height: calc(100dvh - 66px);
+  height: calc(100dvh - 60px);
   min-height: 0;
 }
 
 .input-card {
   display: grid;
   gap: 8px;
-  padding: 6px 0 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 10px;
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.22);
 }
 
-.outcomes-list {
-  display: grid;
-  gap: 7px;
-}
-
+.outcomes-list,
 .outcome-row,
 .control-grid {
   display: grid;
-  gap: 7px;
+  gap: 8px;
 }
 
 .control-grid {
@@ -192,77 +185,66 @@ h1 {
 
 label {
   display: grid;
-  gap: 2px;
+  gap: 5px;
 }
 
 label span {
-  color: var(--text);
-  font-size: 0.87rem;
+  color: var(--muted);
+  font-size: 0.75rem;
   font-weight: 800;
   line-height: 1;
 }
 
 input {
   width: 100%;
-  min-height: 41px;
-  border: 2px solid var(--line);
-  border-radius: 6px;
-  background: rgba(18, 72, 34, 0.58);
+  min-height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--field);
   color: var(--text);
   outline: none;
   padding: 8px 10px;
-  font-size: 0.93rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 800;
 }
 
 input::placeholder {
-  color: rgba(244, 255, 239, 0.58);
+  color: color-mix(in srgb, var(--muted) 70%, transparent);
   font-size: 0.76rem;
   font-weight: 600;
 }
 
 input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(216, 251, 99, 0.16);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .outcome-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
-  align-items: center;
 }
 
 .text-button {
   min-height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-soft);
   color: var(--accent);
-  font-size: 0.94rem;
-  font-weight: 800;
-  text-align: left;
-}
-
-.outcome-actions .text-button:last-child {
-  text-align: right;
-}
-
-.calculate-button {
-  justify-self: center;
-  min-height: 38px;
-  border: 0;
-  border-radius: 6px;
-  background: var(--accent);
-  color: #315027;
-  padding: 0 16px;
-  font-size: 1.05rem;
+  padding: 0 10px;
+  font-size: 0.84rem;
   font-weight: 900;
 }
 
-.result-card {
-  display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr);
-  gap: 7px;
-  min-height: 0;
-  overflow: hidden;
+.calculate-button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--cyan));
+  color: #052018;
+  font-size: 1rem;
+  font-weight: 950;
+  box-shadow: 0 12px 24px rgba(31, 191, 122, 0.24);
 }
 
 .result-mount {
@@ -270,47 +252,66 @@ input:focus {
   overflow: hidden;
 }
 
+.result-card {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 8px;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .result-strip,
-.summary-box {
-  border: 4px solid var(--cyan);
-  border-radius: 7px;
-  background: rgba(0, 181, 170, 0.42);
+.summary-box,
+.allocation-item strong {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
 }
 
 .result-strip {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 40px;
-  padding: 0 10px;
-  color: #eafffb;
+  min-height: 42px;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 0 11px;
   font-size: 0.9rem;
 }
 
 .result-strip strong {
-  color: var(--text);
+  color: var(--accent);
 }
 
 .result-strip--warning {
-  border-color: var(--warning);
-  background: rgba(111, 76, 12, 0.5);
+  border-left-color: var(--warning);
+}
+
+.result-strip--warning strong {
+  color: var(--warning);
 }
 
 .summary-box {
   display: grid;
-  gap: 5px;
-  padding: 6px;
+  gap: 6px;
+  border-radius: 8px;
+  padding: 8px;
 }
 
 .summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 31px;
-  border-radius: 5px;
-  background: rgba(10, 143, 125, 0.34);
-  padding: 0 8px;
+  min-height: 30px;
+  border-radius: 7px;
+  background: var(--surface-soft);
+  padding: 0 9px;
   font-size: 0.78rem;
+}
+
+.summary-row span,
+.allocation-item span {
+  color: var(--muted);
 }
 
 .summary-row strong {
@@ -323,28 +324,25 @@ input:focus {
   gap: 7px;
   min-height: 0;
   overflow: hidden;
-  padding-top: 3px;
 }
 
 .allocation-item {
   display: grid;
-  gap: 4px;
+  gap: 5px;
   min-width: 0;
 }
 
 .allocation-item span {
-  color: rgba(21, 70, 22, 0.82);
-  font-size: 0.88rem;
+  font-size: 0.75rem;
   font-weight: 800;
 }
 
 .allocation-item strong {
   display: grid;
-  min-height: 33px;
+  min-height: 32px;
   place-items: center end;
-  border-radius: 5px;
-  background: var(--field-strong);
-  color: #efffe5;
+  border-radius: 8px;
+  color: var(--text);
   padding: 0 8px;
   font-size: 0.78rem;
   overflow-wrap: anywhere;
@@ -352,9 +350,12 @@ input:focus {
 
 .validation-list {
   margin: 0;
-  padding: 8px 0 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 8px 8px 8px 24px;
   color: var(--danger);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
 }
 
 @media (max-height: 720px) {
@@ -363,28 +364,35 @@ input:focus {
   }
 
   .app-header {
-    height: 38px;
+    height: 40px;
   }
 
   .calculator-screen {
-    height: calc(100dvh - 52px);
+    height: calc(100dvh - 50px);
     gap: 6px;
   }
 
   .input-card,
   .result-card,
   .summary-box,
-  .outcomes-list {
+  .outcomes-list,
+  .outcome-row,
+  .control-grid {
     gap: 5px;
   }
 
+  .input-card {
+    padding: 8px;
+  }
+
   input {
-    min-height: 36px;
+    min-height: 35px;
     padding-block: 6px;
   }
 
-  .calculate-button {
-    min-height: 34px;
+  .calculate-button,
+  .text-button {
+    min-height: 32px;
   }
 
   .result-strip {
@@ -392,10 +400,10 @@ input:focus {
   }
 
   .summary-row {
-    min-height: 27px;
+    min-height: 26px;
   }
 
   .allocation-item strong {
-    min-height: 29px;
+    min-height: 28px;
   }
 }

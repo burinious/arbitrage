@@ -28,7 +28,6 @@ export function createArbitrageCalculator(root) {
     root.innerHTML = `
       <main class="app-shell">
         <header class="app-header">
-          <button class="icon-button" type="button" aria-label="Menu">☰</button>
           <h1>ArbiCalc</h1>
           <div class="header-actions">
             <span class="odds-type">Decimal ▾</span>
