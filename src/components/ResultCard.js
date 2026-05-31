@@ -3,9 +3,11 @@ import { formatCurrency, formatPercent } from "../utils/formatCurrency.js";
 export function ResultCard({ result, currencySymbol }) {
   if (!result?.isValid) {
     return `
-      <section class="card result-card result-card--waiting" aria-live="polite">
-        <div class="status-pill status-pill--neutral">Waiting for valid inputs</div>
-        <h2>Calculation result</h2>
+      <section class="result-card result-card--waiting" aria-live="polite">
+        <div class="result-strip">
+          <span>ROI: --</span>
+          <strong>Enter values</strong>
+        </div>
         <ul class="validation-list">
           ${(result?.errors || ["Enter a total stake and odds greater than 1."])
             .map((error) => `<li>${error}</li>`)
@@ -16,44 +18,46 @@ export function ResultCard({ result, currencySymbol }) {
   }
 
   const statusClass = result.hasArbitrage ? "success" : "warning";
-  const statusText = result.hasArbitrage ? "Arbitrage found" : "No arbitrage";
+  const statusText = result.hasArbitrage ? "Sure Arb" : "No Arb";
 
   return `
-    <section class="card result-card result-card--${statusClass}" aria-live="polite">
-      <div class="status-pill status-pill--${statusClass}">${statusText}</div>
-      <div class="result-grid">
-        ${metric("Total implied probability", formatPercent(result.totalImpliedProbability * 100))}
-        ${metric("Guaranteed return", formatCurrency(result.guaranteedReturn, currencySymbol))}
-        ${metric("Guaranteed profit", formatCurrency(result.guaranteedProfit, currencySymbol))}
-        ${metric("Profit percentage", formatPercent(result.profitPercentage))}
+    <section class="result-card result-card--${statusClass}" aria-live="polite">
+      <div class="result-strip result-strip--${statusClass}">
+        <span>ROI: ${formatPercent(result.profitPercentage)}</span>
+        <strong>${statusText}</strong>
       </div>
-      <div class="allocation-table" role="table" aria-label="Stake allocation">
-        <div class="allocation-head" role="row">
-          <span role="columnheader">Outcome</span>
-          <span role="columnheader">Stake</span>
-          <span role="columnheader">Return</span>
-        </div>
+      <div class="summary-box">
+        ${summaryRow("Total Profit", formatCurrency(result.guaranteedProfit, currencySymbol))}
+        ${summaryRow("Total Payout", formatCurrency(result.guaranteedReturn, currencySymbol))}
+        ${summaryRow("Implied Probability", formatPercent(result.totalImpliedProbability * 100))}
+      </div>
+      <div class="allocation-grid" aria-label="Stake allocation">
         ${result.outcomes
-          .map(
-            (outcome) => `
-              <div class="allocation-row" role="row">
-                <span role="cell">${outcome.label}</span>
-                <span role="cell">${formatCurrency(outcome.stake, currencySymbol)}</span>
-                <span role="cell">${formatCurrency(outcome.returnAmount, currencySymbol)}</span>
-              </div>
-            `
-          )
+          .map((outcome, index) => allocationItem(index + 1, outcome, currencySymbol))
           .join("")}
       </div>
     </section>
   `;
 }
 
-function metric(label, value) {
+function summaryRow(label, value) {
   return `
-    <div class="metric">
+    <div class="summary-row">
       <span>${label}</span>
       <strong>${value}</strong>
+    </div>
+  `;
+}
+
+function allocationItem(number, outcome, currencySymbol) {
+  return `
+    <div class="allocation-item">
+      <span>Amount ${number}</span>
+      <strong>${formatCurrency(outcome.stake, currencySymbol)}</strong>
+    </div>
+    <div class="allocation-item">
+      <span>Payout Amount ${number}</span>
+      <strong>${formatCurrency(outcome.returnAmount, currencySymbol)}</strong>
     </div>
   `;
 }

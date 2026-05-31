@@ -1,4 +1,4 @@
-const CACHE_NAME = "arbicalc-v1";
+const CACHE_NAME = "arbicalc-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -8,7 +8,6 @@ const APP_SHELL = [
   "./src/components/ArbitrageCalculator.js",
   "./src/components/OutcomeInput.js",
   "./src/components/ResultCard.js",
-  "./src/components/HistoryPanel.js",
   "./src/utils/arbitrage.js",
   "./src/utils/formatCurrency.js",
   "./src/styles/app.css"

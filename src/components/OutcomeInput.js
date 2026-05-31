@@ -2,17 +2,7 @@ export function OutcomeInput({ outcome, index }) {
   return `
     <div class="outcome-row" data-outcome-id="${outcome.id}">
       <label>
-        <span>Outcome label</span>
-        <input
-          type="text"
-          class="js-outcome-label"
-          value="${escapeHtml(outcome.label)}"
-          placeholder="Outcome ${index + 1}"
-          autocomplete="off"
-        />
-      </label>
-      <label>
-        <span>Decimal odds</span>
+        <span>Odd ${index + 1}</span>
         <input
           type="number"
           class="js-outcome-odds"
